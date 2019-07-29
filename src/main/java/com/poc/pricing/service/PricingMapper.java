@@ -6,17 +6,17 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
-import com.poc.pricing.model.Pricing;
-import com.poc.pricing.repository.PricingDO;
+import com.poc.pricing.model.PricingDto;
+import com.poc.pricing.repository.PricingDo;
 @Component
 public class PricingMapper {
 
 
-	public List<Pricing> mapPricingDoToDtoList(List<PricingDO> pricingList) {
-		List<Pricing> pricingLi = new ArrayList<Pricing>(pricingList.size());
+	public List<PricingDto> mapPricingDoToDtoList(List<PricingDo> pricingList) {
+		List<PricingDto> pricingLi = new ArrayList<PricingDto>(pricingList.size());
 		pricingList.forEach((p)->
 		{
-			Pricing pricing = new Pricing();
+			PricingDto pricing = new PricingDto();
 			BeanUtils.copyProperties(p, pricing);
 			pricingLi.add(pricing);
 			
@@ -24,14 +24,14 @@ public class PricingMapper {
 		return pricingLi;
 	}
 
-	public PricingDO mapPricingDtoToDo(Pricing pricing) {
-		PricingDO pricingDO = new PricingDO();
+	public PricingDo mapPricingDtoToDo(PricingDto pricing) {
+		PricingDo pricingDO = new PricingDo();
 		BeanUtils.copyProperties(pricing, pricingDO);
 		return pricingDO;
 	}
 
-	public Pricing mapPricingDoToDto(PricingDO pricingDO) {
-		Pricing pricing = new Pricing();
+	public PricingDto mapPricingDoToDto(PricingDo pricingDO) {
+		PricingDto pricing = new PricingDto();
 		BeanUtils.copyProperties(pricingDO, pricing);
 		return pricing;
 	}

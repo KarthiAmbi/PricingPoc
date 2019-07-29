@@ -13,52 +13,56 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poc.pricing.exception.PriceNotFoundException;
-import com.poc.pricing.model.Pricing;
-import com.poc.pricing.service.PricingService;
+import com.poc.pricing.model.PricingDto;
+import com.poc.pricing.service.PricingServiceImpl;
 
 @RestController
 public class PricingController {
 
 	@Autowired
-	private PricingService pricingService;
+	private PricingServiceImpl pricingService;
 
 	/**
+	 * This method returns all the pricing entries
 	 * 
 	 * @return
 	 */
 	@GetMapping("/allpricing")
-	public List<Pricing> getAllPricing() {
+	public List<PricingDto> getAllPricing() {
 		return pricingService.getAllPricing();
 	}
 
 	/**
+	 * This method fetches price by id
 	 * 
 	 * @param id
 	 * @return
 	 */
 	@GetMapping("/price/{id}")
-	public Pricing findPricing(@PathVariable Long id) {
+	public PricingDto findPricing(@PathVariable Long id) {
 		return pricingService.findPriceById(id);
 	}
 
 	/**
+	 * This method updates price by id
 	 * 
 	 * @param pricing
 	 * @return
 	 */
 	@PutMapping("/price/{id}")
-	public Pricing updatePrice(@RequestBody Pricing pricing, @PathVariable Long id) {
+	public PricingDto updatePrice(@RequestBody PricingDto pricing, @PathVariable Long id) {
 		return pricingService.updatePricing(pricing, id);
 	}
 
 	/**
+	 * This method creates the pricing
 	 * 
 	 * @param pricing
 	 * @return
 	 */
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/pricing")
-	public Pricing createPricing(@RequestBody Pricing pricing) {
+	public PricingDto createPricing(@RequestBody PricingDto pricing) {
 		return pricingService.createPricing(pricing);
 	}
 }

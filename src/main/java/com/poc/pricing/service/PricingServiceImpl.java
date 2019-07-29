@@ -5,14 +5,15 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import com.poc.pricing.exception.PriceNotFoundException;
-import com.poc.pricing.model.Pricing;
-import com.poc.pricing.repository.PricingDO;
+import com.poc.pricing.model.PricingDto;
+import com.poc.pricing.repository.PricingDo;
 import com.poc.pricing.repository.PricingRepository;
 
 @Component
-public class PricingService {
+public class PricingServiceImpl implements PricingService {
 
 	@Autowired
 	private PricingMapper pricingMapper;
@@ -26,8 +27,8 @@ public class PricingService {
 	 * @return
 	 * @throws PriceNotFoundException
 	 */
-	public Pricing findPriceById(Long id) throws PriceNotFoundException {
-		Optional<PricingDO> pricingDO = pricingRepository.findById(id);
+	public PricingDto findPriceById(Long id) throws PriceNotFoundException {
+		Optional<PricingDo> pricingDO = pricingRepository.findById(id);
 		if (pricingDO.isPresent()) {
 			return pricingMapper.mapPricingDoToDto(pricingDO.get());
 		}
@@ -40,10 +41,10 @@ public class PricingService {
 	 * @param pricing
 	 * @return
 	 */
-	public Pricing updatePricing(Pricing pricing, Long id) {
-		Optional<PricingDO> pricingDOOPt = pricingRepository.findById(id);
+	public PricingDto updatePricing(PricingDto pricing, Long id) {
+		Optional<PricingDo> pricingDOOPt = pricingRepository.findById(id);
 		if (pricingDOOPt.isPresent()) {
-			PricingDO pricingDO = pricingMapper.mapPricingDtoToDo(pricing);
+			PricingDo pricingDO = pricingMapper.mapPricingDtoToDo(pricing);
 			pricingDO = pricingRepository.save(pricingDO);
 			return pricingMapper.mapPricingDoToDto(pricingDO);
 		}
@@ -54,9 +55,12 @@ public class PricingService {
 	 * 
 	 * @return
 	 */
-	public List<Pricing> getAllPricing() {
-		List<PricingDO> pricingList = pricingRepository.findAll();
-		return pricingMapper.mapPricingDoToDtoList(pricingList);
+	public List<PricingDto> getAllPricing() {
+		List<PricingDo> pricingList = pricingRepository.findAll();
+		if (!CollectionUtils.isEmpty(pricingList)) {
+			return pricingMapper.mapPricingDoToDtoList(pricingList);
+		}
+		throw new PriceNotFoundException();
 	}
 
 	/**
@@ -64,8 +68,8 @@ public class PricingService {
 	 * @param pricing
 	 * @return
 	 */
-	public Pricing createPricing(Pricing pricing) {
-		PricingDO pricingDO = pricingRepository.save(pricingMapper.mapPricingDtoToDo(pricing));
+	public PricingDto createPricing(PricingDto pricing) {
+		PricingDo pricingDO = pricingRepository.save(pricingMapper.mapPricingDtoToDo(pricing));
 		return pricingMapper.mapPricingDoToDto(pricingDO);
 
 	}
