@@ -12,7 +12,7 @@ import com.poc.pricing.repository.PricingDO;
 public class PricingMapper {
 
 
-	public List<Pricing> mapPricingDotoDto(List<PricingDO> pricingList) {
+	public List<Pricing> mapPricingDoToDtoList(List<PricingDO> pricingList) {
 		List<Pricing> pricingLi = new ArrayList<Pricing>(pricingList.size());
 		pricingList.forEach((p)->
 		{
@@ -24,13 +24,13 @@ public class PricingMapper {
 		return pricingLi;
 	}
 
-	public PricingDO mapPricingDtotoDo(Pricing pricing) {
+	public PricingDO mapPricingDtoToDo(Pricing pricing) {
 		PricingDO pricingDO = new PricingDO();
 		BeanUtils.copyProperties(pricing, pricingDO);
 		return pricingDO;
 	}
 
-	public Pricing mapPricingDtotoDoReverse(PricingDO pricingDO) {
+	public Pricing mapPricingDoToDto(PricingDO pricingDO) {
 		Pricing pricing = new Pricing();
 		BeanUtils.copyProperties(pricingDO, pricing);
 		return pricing;

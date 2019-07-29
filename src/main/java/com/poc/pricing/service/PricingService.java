@@ -29,7 +29,7 @@ public class PricingService {
 	public Pricing findPriceById(Long id) throws PriceNotFoundException {
 		Optional<PricingDO> pricingDO = pricingRepository.findById(id);
 		if (pricingDO.isPresent()) {
-			return pricingMapper.mapPricingDtotoDoReverse(pricingDO.get());
+			return pricingMapper.mapPricingDoToDto(pricingDO.get());
 		}
 		throw new PriceNotFoundException();
 
@@ -43,9 +43,9 @@ public class PricingService {
 	public Pricing updatePricing(Pricing pricing, Long id) {
 		Optional<PricingDO> pricingDOOPt = pricingRepository.findById(id);
 		if (pricingDOOPt.isPresent()) {
-			PricingDO pricingDO = pricingMapper.mapPricingDtotoDo(pricing);
+			PricingDO pricingDO = pricingMapper.mapPricingDtoToDo(pricing);
 			pricingDO = pricingRepository.save(pricingDO);
-			return pricingMapper.mapPricingDtotoDoReverse(pricingDO);
+			return pricingMapper.mapPricingDoToDto(pricingDO);
 		}
 		throw new PriceNotFoundException();
 	}
@@ -56,7 +56,7 @@ public class PricingService {
 	 */
 	public List<Pricing> getAllPricing() {
 		List<PricingDO> pricingList = pricingRepository.findAll();
-		return pricingMapper.mapPricingDotoDto(pricingList);
+		return pricingMapper.mapPricingDoToDtoList(pricingList);
 	}
 
 	/**
@@ -65,8 +65,8 @@ public class PricingService {
 	 * @return
 	 */
 	public Pricing createPricing(Pricing pricing) {
-		PricingDO pricingDO = pricingRepository.save(pricingMapper.mapPricingDtotoDo(pricing));
-		return pricingMapper.mapPricingDtotoDoReverse(pricingDO);
+		PricingDO pricingDO = pricingRepository.save(pricingMapper.mapPricingDtoToDo(pricing));
+		return pricingMapper.mapPricingDoToDto(pricingDO);
 
 	}
 }
