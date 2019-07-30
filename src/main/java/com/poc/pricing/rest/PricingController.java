@@ -66,4 +66,10 @@ public class PricingController {
 	public PricingDto createPricing(@RequestBody PricingDto pricing) {
 		return pricingService.createPricing(pricing);
 	}
+	
+	@ResponseStatus(HttpStatus.OK)
+	@DeleteMapping("/price/{id}")
+	public void deletePricing(@PathVariable long id) {
+		pricingService.deletePricing(id);
+	}
 }
