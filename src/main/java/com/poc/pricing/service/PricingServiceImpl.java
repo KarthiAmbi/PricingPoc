@@ -74,4 +74,14 @@ public class PricingServiceImpl implements PricingService {
 		return pricingMapper.mapPricingDoToDto(pricingDO);
 
 	}
+	
+	public void deletePricing(long id) {
+		Optional<PricingDo> pricingDOOPt = pricingRepository.findById(id);
+		if (pricingDOOPt.isPresent()) {
+			pricingRepository.deleteById(id);
+		}
+		else {
+			throw new PriceNotFoundException();
+		}
+	}
 }
