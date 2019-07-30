@@ -74,13 +74,18 @@ public class PricingServiceImpl implements PricingService {
 		return pricingMapper.mapPricingDoToDto(pricingDO);
 
 	}
+
 	
+	/**
+	 * This method deletes the pricing by id
+	 * 
+	 * @param id
+	 */
 	public void deletePricing(long id) {
 		Optional<PricingDo> pricingDOOPt = pricingRepository.findById(id);
 		if (pricingDOOPt.isPresent()) {
 			pricingRepository.deleteById(id);
-		}
-		else {
+		} else {
 			throw new PriceNotFoundException();
 		}
 	}

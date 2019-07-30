@@ -14,7 +14,7 @@ public class PricingExceptionHandler {
 
 	@ExceptionHandler(PriceNotFoundException.class)
 	public ResponseEntity<Object> exception(PriceNotFoundException exception) {
-		return new ResponseEntity<>("Price not found", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>("Price Id not found", HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(PricingException.class)
@@ -22,7 +22,7 @@ public class PricingExceptionHandler {
 		return new ResponseEntity<>("Pricing Exception", HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler(Throwable.class)
 	public ResponseEntity<Object> exception(Exception response) throws IOException {
 		return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
