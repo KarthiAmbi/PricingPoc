@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poc.pricing.exception.PriceNotFoundException;
 import com.poc.pricing.model.PricingDto;
 import com.poc.pricing.service.PricingServiceImpl;
 
+import io.swagger.annotations.Api;
+@Api
 @RestController
 public class PricingController {
 

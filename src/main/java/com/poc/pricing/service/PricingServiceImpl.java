@@ -45,6 +45,7 @@ public class PricingServiceImpl implements PricingService {
 		Optional<PricingDo> pricingDOOPt = pricingRepository.findById(id);
 		if (pricingDOOPt.isPresent()) {
 			PricingDo pricingDO = pricingMapper.mapPricingDtoToDo(pricing);
+			pricingDO.setId(id);
 			pricingDO = pricingRepository.save(pricingDO);
 			return pricingMapper.mapPricingDoToDto(pricingDO);
 		}

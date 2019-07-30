@@ -7,7 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
+@EnableSwagger2
 @SpringBootApplication
 @ComponentScan("com.poc.pricing.*")
 public class PricingApplication {
