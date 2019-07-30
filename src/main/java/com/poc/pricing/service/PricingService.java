@@ -14,4 +14,6 @@ public interface PricingService {
 
 	public PricingDto createPricing(PricingDto pricing);
 	
+	public void deletePricing(long id);
+	
 }
