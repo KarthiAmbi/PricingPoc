@@ -2,18 +2,18 @@ package com.poc.pricing.service;
 
 import java.util.List;
 
-import com.poc.pricing.model.PricingDto;
+import com.poc.pricing.model.ProductDto;
 
 public interface PricingService {
 
-	public PricingDto findPriceById(Long id);
+	public ProductDto findProductById(Long id);
 
-	public PricingDto updatePricing(PricingDto pricing, Long id);
+	public ProductDto updateProduct(ProductDto product, Long id);
 
-	public List<PricingDto> getAllPricing();
+	public List<ProductDto> getAllProducts();
 
-	public PricingDto createPricing(PricingDto pricing);
+	public ProductDto createProduct(ProductDto product);
 	
-	public void deletePricing(long id);
+	public void deleteProduct(long id);
 	
 }

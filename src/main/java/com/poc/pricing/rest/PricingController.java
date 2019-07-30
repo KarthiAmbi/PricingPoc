@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poc.pricing.model.PricingDto;
+import com.poc.pricing.model.ProductDto;
 import com.poc.pricing.service.PricingServiceImpl;
 
 import io.swagger.annotations.Api;
+
 @Api
 @RestController
 public class PricingController {
@@ -29,9 +30,9 @@ public class PricingController {
 	 * 
 	 * @return
 	 */
-	@GetMapping("/allpricing")
-	public List<PricingDto> getAllPricing() {
-		return pricingService.getAllPricing();
+	@GetMapping("/products")
+	public List<ProductDto> getAllProducts() {
+		return pricingService.getAllProducts();
 	}
 
 	/**
@@ -40,9 +41,9 @@ public class PricingController {
 	 * @param id
 	 * @return
 	 */
-	@GetMapping("/price/{id}")
-	public PricingDto findPricing(@PathVariable Long id) {
-		return pricingService.findPriceById(id);
+	@GetMapping("/product/{id}")
+	public ProductDto getProduct(@PathVariable Long id) {
+		return pricingService.findProductById(id);
 	}
 
 	/**
@@ -51,9 +52,9 @@ public class PricingController {
 	 * @param pricing
 	 * @return
 	 */
-	@PutMapping("/price/{id}")
-	public PricingDto updatePrice(@RequestBody PricingDto pricing, @PathVariable Long id) {
-		return pricingService.updatePricing(pricing, id);
+	@PutMapping("/product/{id}")
+	public ProductDto updateProduct(@RequestBody ProductDto pricing, @PathVariable Long id) {
+		return pricingService.updateProduct(pricing, id);
 	}
 
 	/**
@@ -63,14 +64,14 @@ public class PricingController {
 	 * @return
 	 */
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/pricing")
-	public PricingDto createPricing(@RequestBody PricingDto pricing) {
-		return pricingService.createPricing(pricing);
+	@PostMapping("/product")
+	public ProductDto createProduct(@RequestBody ProductDto pricing) {
+		return pricingService.createProduct(pricing);
 	}
-	
+
 	@ResponseStatus(HttpStatus.OK)
-	@DeleteMapping("/price/{id}")
-	public void deletePricing(@PathVariable long id) {
-		pricingService.deletePricing(id);
+	@DeleteMapping("/product/{id}")
+	public void deleteProduct(@PathVariable long id) {
+		pricingService.deleteProduct(id);
 	}
 }

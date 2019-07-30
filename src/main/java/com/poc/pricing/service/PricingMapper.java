@@ -6,33 +6,34 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
-import com.poc.pricing.model.PricingDto;
-import com.poc.pricing.repository.PricingDo;
+import com.poc.pricing.model.ProductDto;
+import com.poc.pricing.repository.ProductDo;
+
 @Component
 public class PricingMapper {
 
 
-	public List<PricingDto> mapPricingDoToDtoList(List<PricingDo> pricingList) {
-		List<PricingDto> pricingLi = new ArrayList<PricingDto>(pricingList.size());
-		pricingList.forEach((p)->
+	public List<ProductDto> mapProductDoToDtoList(List<ProductDo> productList) {
+		List<ProductDto> productDtoList = new ArrayList<ProductDto>(productList.size());
+		productList.forEach((p)->
 		{
-			PricingDto pricing = new PricingDto();
-			BeanUtils.copyProperties(p, pricing);
-			pricingLi.add(pricing);
+			ProductDto product = new ProductDto();
+			BeanUtils.copyProperties(p, product);
+			productDtoList.add(product);
 			
 		});
-		return pricingLi;
+		return productDtoList;
 	}
 
-	public PricingDo mapPricingDtoToDo(PricingDto pricing) {
-		PricingDo pricingDO = new PricingDo();
-		BeanUtils.copyProperties(pricing, pricingDO);
-		return pricingDO;
+	public ProductDo mapProductDtoToDo(ProductDto product) {
+		ProductDo productDo = new ProductDo();
+		BeanUtils.copyProperties(product, productDo);
+		return productDo;
 	}
 
-	public PricingDto mapPricingDoToDto(PricingDo pricingDO) {
-		PricingDto pricing = new PricingDto();
-		BeanUtils.copyProperties(pricingDO, pricing);
+	public ProductDto mapProductDoToDto(ProductDo productDo) {
+		ProductDto pricing = new ProductDto();
+		BeanUtils.copyProperties(productDo, pricing);
 		return pricing;
 	}
 
