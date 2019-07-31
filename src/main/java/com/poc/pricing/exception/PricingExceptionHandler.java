@@ -14,7 +14,7 @@ public class PricingExceptionHandler {
 
 	@ExceptionHandler(PriceNotFoundException.class)
 	public ResponseEntity<Object> exception(PriceNotFoundException exception) {
-		return new ResponseEntity<>("Price Id not found", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>("Product Id not found", HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(PricingException.class)

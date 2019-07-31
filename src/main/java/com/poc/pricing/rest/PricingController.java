@@ -26,7 +26,7 @@ public class PricingController {
 	private PricingServiceImpl pricingService;
 
 	/**
-	 * This method returns all the pricing entries
+	 * This method returns all the products
 	 * 
 	 * @return
 	 */
@@ -36,7 +36,7 @@ public class PricingController {
 	}
 
 	/**
-	 * This method fetches price by id
+	 * This method fetches product by id
 	 * 
 	 * @param id
 	 * @return
@@ -47,28 +47,33 @@ public class PricingController {
 	}
 
 	/**
-	 * This method updates price by id
+	 * This method updates product by id
 	 * 
-	 * @param pricing
+	 * @param product
 	 * @return
 	 */
 	@PutMapping("/product/{id}")
-	public ProductDto updateProduct(@RequestBody ProductDto pricing, @PathVariable Long id) {
-		return pricingService.updateProduct(pricing, id);
+	public ProductDto updateProduct(@RequestBody ProductDto product, @PathVariable Long id) {
+		return pricingService.updateProduct(product, id);
 	}
 
 	/**
-	 * This method creates the pricing
+	 * This method creates the product
 	 * 
-	 * @param pricing
+	 * @param product
 	 * @return
 	 */
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/product")
-	public ProductDto createProduct(@RequestBody ProductDto pricing) {
-		return pricingService.createProduct(pricing);
+	public ProductDto createProduct(@RequestBody ProductDto product) {
+		return pricingService.createProduct(product);
 	}
 
+	/**
+	 * This method deletes the product
+	 * 
+	 * @param id
+	 */
 	@ResponseStatus(HttpStatus.OK)
 	@DeleteMapping("/product/{id}")
 	public void deleteProduct(@PathVariable long id) {
