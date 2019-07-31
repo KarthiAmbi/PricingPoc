@@ -17,9 +17,11 @@ import com.poc.pricing.model.ProductDto;
 import com.poc.pricing.service.PricingServiceImpl;
 
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 
 @Api
 @RestController
+@Slf4j
 public class PricingController {
 
 	@Autowired
@@ -32,6 +34,7 @@ public class PricingController {
 	 */
 	@GetMapping("/products")
 	public List<ProductDto> getAllProducts() {
+		log.info(" :: Inside PricingController getAllProducts ::");
 		return pricingService.getAllProducts();
 	}
 

@@ -27,7 +27,7 @@ public class PricingServiceImpl implements PricingService {
 	 * @return
 	 * @throws PriceNotFoundException
 	 */
-	public ProductDto findProductById(Long id) throws PriceNotFoundException {
+	public ProductDto findProductById(final Long id)  {
 		Optional<ProductDo> pricingDO = pricingRepository.findById(id);
 		if (pricingDO.isPresent()) {
 			return pricingMapper.mapProductDoToDto(pricingDO.get());
@@ -41,7 +41,7 @@ public class PricingServiceImpl implements PricingService {
 	 * @param pricing
 	 * @return
 	 */
-	public ProductDto updateProduct(ProductDto product, Long id) {
+	public ProductDto updateProduct(final ProductDto product, final Long id) {
 		Optional<ProductDo> pricingDOOPt = pricingRepository.findById(id);
 		if (pricingDOOPt.isPresent()) {
 			ProductDo pricingDO = pricingMapper.mapProductDtoToDo(product);
@@ -69,7 +69,7 @@ public class PricingServiceImpl implements PricingService {
 	 * @param pricing
 	 * @return
 	 */
-	public ProductDto createProduct(ProductDto product) {
+	public ProductDto createProduct(final ProductDto product) {
 		ProductDo pricingDO = pricingRepository.save(pricingMapper.mapProductDtoToDo(product));
 		return pricingMapper.mapProductDoToDto(pricingDO);
 
@@ -81,7 +81,7 @@ public class PricingServiceImpl implements PricingService {
 	 * 
 	 * @param id
 	 */
-	public void deleteProduct(long id) {
+	public void deleteProduct(final long id) {
 		Optional<ProductDo> pricingDOOPt = pricingRepository.findById(id);
 		if (pricingDOOPt.isPresent()) {
 			pricingRepository.deleteById(id);

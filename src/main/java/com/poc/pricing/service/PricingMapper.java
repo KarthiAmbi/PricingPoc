@@ -13,9 +13,9 @@ import com.poc.pricing.repository.ProductDo;
 public class PricingMapper {
 
 
-	public List<ProductDto> mapProductDoToDtoList(List<ProductDo> productList) {
-		List<ProductDto> productDtoList = new ArrayList<ProductDto>(productList.size());
-		productList.forEach((p)->
+	public List<ProductDto> mapProductDoToDtoList(final List<ProductDo> productList) {
+		List<ProductDto> productDtoList = new ArrayList<>(productList.size());
+		productList.forEach(p->
 		{
 			ProductDto product = new ProductDto();
 			BeanUtils.copyProperties(p, product);
@@ -25,13 +25,13 @@ public class PricingMapper {
 		return productDtoList;
 	}
 
-	public ProductDo mapProductDtoToDo(ProductDto product) {
+	public ProductDo mapProductDtoToDo(final ProductDto product) {
 		ProductDo productDo = new ProductDo();
 		BeanUtils.copyProperties(product, productDo);
 		return productDo;
 	}
 
-	public ProductDto mapProductDoToDto(ProductDo productDo) {
+	public ProductDto mapProductDoToDto(final ProductDo productDo) {
 		ProductDto pricing = new ProductDto();
 		BeanUtils.copyProperties(productDo, pricing);
 		return pricing;

@@ -1,9 +1,5 @@
 package com.poc.pricing.exception;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,12 +14,12 @@ public class PricingExceptionHandler {
 	}
 
 	@ExceptionHandler(PricingException.class)
-	public ResponseEntity<Object> exception(PricingException response) throws IOException {
+	public ResponseEntity<Object> exception(PricingException response) {
 		return new ResponseEntity<>("Pricing Exception", HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(Throwable.class)
-	public ResponseEntity<Object> exception(Exception response) throws IOException {
+	public ResponseEntity<Object> exception(Exception response)  {
 		return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
