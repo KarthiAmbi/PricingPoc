@@ -65,15 +65,6 @@ public class PricingServiceImplTest {
 
 	}
 
-	public void deleteProduct(final long id) {
-		Optional<ProductDo> pricingDOOPt = pricingRepository.findById(id);
-		if (pricingDOOPt.isPresent()) {
-			pricingRepository.deleteById(id);
-		} else {
-			throw new PriceNotFoundException();
-		}
-	}
-
 	@Test
 	public void deleteProductTest(){
 
