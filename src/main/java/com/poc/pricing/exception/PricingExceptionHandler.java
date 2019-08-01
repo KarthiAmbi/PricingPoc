@@ -13,11 +13,6 @@ public class PricingExceptionHandler {
 		return new ResponseEntity<>("Product Id not found", HttpStatus.NOT_FOUND);
 	}
 
-	@ExceptionHandler(PricingException.class)
-	public ResponseEntity<Object> exception(PricingException response) {
-		return new ResponseEntity<>("Pricing Exception", HttpStatus.BAD_REQUEST);
-	}
-	
 	@ExceptionHandler(Throwable.class)
 	public ResponseEntity<Object> exception(Exception response)  {
 		return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
