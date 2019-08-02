@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.poc.pricing.exception.PriceNotFoundException;
+import com.poc.pricing.mapper.PricingMapper;
 import com.poc.pricing.model.ProductDto;
 import com.poc.pricing.repository.ProductDo;
 import com.poc.pricing.repository.PricingRepository;

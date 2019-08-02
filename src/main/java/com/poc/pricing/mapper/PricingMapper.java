@@ -1,4 +1,4 @@
-package com.poc.pricing.service;
+package com.poc.pricing.mapper;
 
 import java.util.ArrayList;
 import java.util.List;

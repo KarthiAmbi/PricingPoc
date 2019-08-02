@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import com.poc.pricing.exception.PriceNotFoundException;
+import com.poc.pricing.mapper.PricingMapper;
 import com.poc.pricing.model.ProductDto;
 import com.poc.pricing.repository.ProductDo;
 import com.poc.pricing.repository.PricingRepository;

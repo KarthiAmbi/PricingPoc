@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.poc.pricing.mapper.PricingMapper;
 import com.poc.pricing.model.ProductDto;
 import com.poc.pricing.repository.ProductDo;
 

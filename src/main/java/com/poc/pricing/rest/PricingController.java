@@ -2,6 +2,8 @@ package com.poc.pricing.rest;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -56,7 +58,7 @@ public class PricingController {
 	 * @return
 	 */
 	@PutMapping("/product/{id}")
-	public ProductDto updateProduct(@RequestBody ProductDto product, @PathVariable Long id) {
+	public ProductDto updateProduct(@Valid @RequestBody ProductDto product, @PathVariable Long id) {
 		return pricingService.updateProduct(product, id);
 	}
 
@@ -68,7 +70,7 @@ public class PricingController {
 	 */
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/product")
-	public ProductDto createProduct(@RequestBody ProductDto product) {
+	public ProductDto createProduct(@Valid @RequestBody ProductDto product) {
 		return pricingService.createProduct(product);
 	}
 
@@ -82,4 +84,6 @@ public class PricingController {
 	public void deleteProduct(@PathVariable long id) {
 		pricingService.deleteProduct(id);
 	}
+
+	
 }
