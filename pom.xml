@@ -13,7 +13,7 @@
 	<artifactId>Pricing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Pricing</name>
-	<description>Demo project for Spring Boot</description>
+	<description>POC for Pricing</description>
 
 	<properties>
 		<java.version>1.8</java.version>

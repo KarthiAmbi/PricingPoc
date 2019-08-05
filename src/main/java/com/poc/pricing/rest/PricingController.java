@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poc.pricing.model.ProductDto;
-import com.poc.pricing.service.PricingServiceImpl;
+import com.poc.pricing.service.PricingService;
 
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PricingController {
 
 	@Autowired
-	private PricingServiceImpl pricingService;
+	private PricingService pricingService;
 
 	/**
 	 * This method returns all the products
