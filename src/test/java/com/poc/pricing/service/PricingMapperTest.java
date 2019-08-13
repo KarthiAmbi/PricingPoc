@@ -11,9 +11,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.poc.pricing.dao.model.ProductDo;
+import com.poc.pricing.dto.ProductDto;
 import com.poc.pricing.mapper.PricingMapper;
-import com.poc.pricing.model.ProductDto;
-import com.poc.pricing.repository.ProductDo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PricingMapperTest {
@@ -26,9 +26,9 @@ public class PricingMapperTest {
 	@Before
 	public void setUp() {
 
-		listDo.add(new ProductDo(1l, "Fridge", "Electrical", "15000"));
-		listDo.add(new ProductDo(2l, "TV", "Electronics", "10000"));
-		listDo.add(new ProductDo(3l, "Router", "Electronics", "5000"));
+		listDo.add(new ProductDo(1l, "Fridge", "Home Applience", "Electrical", "15000"));
+		listDo.add(new ProductDo(2l, "TV", "Electronics", "Home Applience", "10000"));
+		listDo.add(new ProductDo(3l, "Router", "Electronics", "Home Applience", "5000"));
 
 	}
 
@@ -40,13 +40,15 @@ public class PricingMapperTest {
 
 	@Test
 	public void testMapProductDtoToDo() {
-		ProductDo productDo = pricingMapper.mapProductDtoToDo(new ProductDto(1l, "Fridge", "Electrical", "15000"));
+		ProductDo productDo = pricingMapper
+				.mapProductDtoToDo(new ProductDto(1l, "Fridge", "Home Appl", "Electrical", "15000"));
 		assertNotNull(productDo);
 	}
 
 	@Test
 	public void testMapProductDoToDto() {
-		ProductDto productDto = pricingMapper.mapProductDoToDto(new ProductDo(3l, "Router", "Electronics", "5000"));
+		ProductDto productDto = pricingMapper
+				.mapProductDoToDto(new ProductDo(3l, "Router", "Home Appl", "Electronics", "5000"));
 		assertNotNull(productDto);
 	}
 }

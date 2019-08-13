@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import com.poc.pricing.dao.PricingRepository;
+import com.poc.pricing.dao.model.ProductDo;
+import com.poc.pricing.dto.ProductDto;
 import com.poc.pricing.exception.PriceNotFoundException;
 import com.poc.pricing.mapper.PricingMapper;
-import com.poc.pricing.model.ProductDto;
-import com.poc.pricing.repository.ProductDo;
-import com.poc.pricing.repository.PricingRepository;
 
 @Component
 public class PricingServiceImpl implements PricingService {

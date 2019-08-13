@@ -2,7 +2,7 @@ package com.poc.pricing.service;
 
 import java.util.List;
 
-import com.poc.pricing.model.ProductDto;
+import com.poc.pricing.dto.ProductDto;
 
 public interface PricingService {
 

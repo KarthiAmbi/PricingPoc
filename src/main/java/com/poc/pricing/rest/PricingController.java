@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poc.pricing.model.ProductDto;
+import com.poc.pricing.dto.ProductDto;
 import com.poc.pricing.service.PricingService;
 
 import io.swagger.annotations.Api;

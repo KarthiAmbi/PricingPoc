@@ -11,9 +11,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.poc.pricing.dao.model.ProductDo;
+import com.poc.pricing.dto.ProductDto;
 import com.poc.pricing.exception.PriceNotFoundException;
-import com.poc.pricing.model.ProductDto;
-import com.poc.pricing.repository.ProductDo;
 import com.poc.pricing.service.PricingServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,13 +31,13 @@ public class PricingControllerTest {
 	@Before
 	public void setUp() {
 
-		listDo.add(new ProductDo(1l, "Fridge", "Electrical", "15000"));
-		listDo.add(new ProductDo(2l, "TV", "Electronics", "10000"));
-		listDo.add(new ProductDo(3l, "Router", "Electronics", "5000"));
+		listDo.add(new ProductDo(1l, "Fridge", "Home Applience", "Electrical", "15000"));
+		listDo.add(new ProductDo(2l, "TV", "Electronics", "Home Applience", "10000"));
+		listDo.add(new ProductDo(3l, "Router", "Electronics", "Home Applience", "5000"));
 
-		listDto.add(new ProductDto(1l, "Fridge", "Electrical", "15000"));
-		listDto.add(new ProductDto(2l, "TV", "Electronics", "10000"));
-		listDto.add(new ProductDto(3l, "Router", "Electronics", "5000"));
+		listDto.add(new ProductDto(1l, "Fridge", "Home Applience", "Electrical", "15000"));
+		listDto.add(new ProductDto(2l, "TV", "Home Applience", "Electronics", "10000"));
+		listDto.add(new ProductDto(3l, "Router", "Home Applience", "Electronics", "5000"));
 	}
 
 	@Test

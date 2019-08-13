@@ -1,4 +1,4 @@
-package com.poc.pricing.repository;
+package com.poc.pricing.dao.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +20,8 @@ public class ProductDo {
 	@GeneratedValue
 	private Long id;
 	private String name;
-	private String dept;
+	private String description;
+	private String type;
 	private String amount;
 
 	

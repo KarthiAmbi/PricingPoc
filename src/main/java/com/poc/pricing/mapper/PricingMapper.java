@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
-import com.poc.pricing.model.ProductDto;
-import com.poc.pricing.repository.ProductDo;
+import com.poc.pricing.dao.model.ProductDo;
+import com.poc.pricing.dto.ProductDto;
 
 @Component
 public class PricingMapper {
