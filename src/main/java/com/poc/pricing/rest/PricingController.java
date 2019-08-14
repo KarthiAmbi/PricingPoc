@@ -21,7 +21,7 @@ import com.poc.pricing.service.PricingService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 
-@Api
+@Api(tags = "Pricing Poc")
 @RestController
 @Slf4j
 public class PricingController {
