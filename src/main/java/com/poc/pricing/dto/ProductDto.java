@@ -1,5 +1,7 @@
 package com.poc.pricing.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,5 +26,8 @@ public class ProductDto {
 	@NotNull(message = "Product Type cannot be null")
 	private String type;
 	private String amount;
+	private List<VendorDto> vendors;
+	
+	
 
 }

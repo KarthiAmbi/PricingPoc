@@ -1,0 +1,12 @@
+logging:
+  level:
+    org:
+      springframework: INFO
+# Ehcache configuration.
+
+spring:
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml
+      names: productCache
+      type: ehcache

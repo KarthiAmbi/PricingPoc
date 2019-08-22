@@ -4,23 +4,38 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import com.poc.pricing.dao.PricingRepository;
+import com.poc.pricing.dao.VendorRepository;
 import com.poc.pricing.dao.model.ProductDo;
+import com.poc.pricing.dao.model.Vendor;
 import com.poc.pricing.dto.ProductDto;
+import com.poc.pricing.dto.ProductResponse;
+import com.poc.pricing.dto.VendorDto;
 import com.poc.pricing.exception.PriceNotFoundException;
-import com.poc.pricing.mapper.PricingMapper;
+import com.poc.pricing.exception.ProductNameExistException;
+import com.poc.pricing.mapper.ProductMapper;
+import com.poc.pricing.util.PricingConstants;
 
 @Component
 public class PricingServiceImpl implements PricingService {
 
 	@Autowired
-	private PricingMapper pricingMapper;
+	private ProductMapper productMapper;
 
 	@Autowired
 	private PricingRepository pricingRepository;
+
+	@Autowired
+	private VendorRepository vendorRepository;
 
 	/**
 	 * 
@@ -28,12 +43,13 @@ public class PricingServiceImpl implements PricingService {
 	 * @return
 	 * @throws PriceNotFoundException
 	 */
-	public ProductDto findProductById(final Long id)  {
+	@Cacheable(value = "productCache", key = "#id")
+	public ProductDto findProductById(final Long id) {
 		Optional<ProductDo> pricingDO = pricingRepository.findById(id);
 		if (pricingDO.isPresent()) {
-			return pricingMapper.mapProductDoToDto(pricingDO.get());
+			return productMapper.mapProductDoToDto(pricingDO.get());
 		}
-		throw new PriceNotFoundException();
+		throw new PriceNotFoundException(PricingConstants.PRODUCT_NOT_FOUND_ERROR);
 
 	}
 
@@ -42,27 +58,35 @@ public class PricingServiceImpl implements PricingService {
 	 * @param pricing
 	 * @return
 	 */
+	@CachePut(value = "productCache", key = "#id")
 	public ProductDto updateProduct(final ProductDto product, final Long id) {
 		Optional<ProductDo> pricingDOOPt = pricingRepository.findById(id);
 		if (pricingDOOPt.isPresent()) {
-			ProductDo pricingDO = pricingMapper.mapProductDtoToDo(product);
+			ProductDo pricingDO = productMapper.mapProductDtoToDo(product);
 			pricingDO.setId(id);
 			pricingDO = pricingRepository.save(pricingDO);
-			return pricingMapper.mapProductDoToDto(pricingDO);
+			return productMapper.mapProductDoToDto(pricingDO);
 		}
-		throw new PriceNotFoundException();
+		throw new PriceNotFoundException(PricingConstants.PRODUCT_NOT_FOUND_ERROR);
 	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public List<ProductDto> getAllProducts() {
-		List<ProductDo> pricingList = pricingRepository.findAll();
-		if (!CollectionUtils.isEmpty(pricingList)) {
-			return pricingMapper.mapProductDoToDtoList(pricingList);
+	public ProductResponse getAllProducts(Integer pageNo, Integer pageSize, String sortBy) {
+		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+		Page<ProductDo> pagedResult = pricingRepository.findAll(paging);
+		if (pagedResult.hasContent()) {
+			long count = pricingRepository.count();
+			ProductResponse productResponse = new ProductResponse();
+			productResponse.setTotalNumberofRecords(count);
+			List<ProductDto> productDtos = productMapper.mapProductDoToDtoList(pagedResult.getContent());
+			productResponse.setProducts(productDtos);
+			return productResponse;
 		}
-		throw new PriceNotFoundException();
+		throw new PriceNotFoundException(PricingConstants.PRODUCT_NOT_FOUND_ERROR);
+
 	}
 
 	/**
@@ -71,23 +95,38 @@ public class PricingServiceImpl implements PricingService {
 	 * @return
 	 */
 	public ProductDto createProduct(final ProductDto product) {
-		ProductDo pricingDO = pricingRepository.save(pricingMapper.mapProductDtoToDo(product));
-		return pricingMapper.mapProductDoToDto(pricingDO);
+		Optional<ProductDo> pro = pricingRepository.findByName(product.getName());
+		if (!pro.isPresent()) {
+			ProductDo productDo = productMapper.mapProductDtoToDo(product);
+			ProductDo pricingDO = pricingRepository.save(productDo);
+			return productMapper.mapProductDoToDto(pricingDO);
+		}
+		throw new ProductNameExistException("Product Name already exist");
 
 	}
 
-	
 	/**
 	 * This method deletes the pricing by id
 	 * 
 	 * @param id
 	 */
+	@CacheEvict(value = "productCache", key = "#id")
 	public void deleteProduct(final long id) {
 		Optional<ProductDo> pricingDOOPt = pricingRepository.findById(id);
 		if (pricingDOOPt.isPresent()) {
 			pricingRepository.deleteById(id);
 		} else {
-			throw new PriceNotFoundException();
+			throw new PriceNotFoundException(PricingConstants.PRODUCT_NOT_FOUND_ERROR);
 		}
+	}
+
+	@Override
+	public List<VendorDto> findAllVendors() {
+		List<Vendor> vendors = vendorRepository.findAllVendorByNameDescending();
+		if (vendors != null) {
+			return productMapper.mapVendor(vendors);
+		}
+
+		throw new PriceNotFoundException("Vendors Not Found");
 	}
 }
