@@ -16,9 +16,10 @@ import lombok.Setter;
 @Setter
 @JsonInclude(Include.NON_NULL)
 public class VendorDto {
-	private Long vendorId;
-	private String vendorName;
-	private String vendorDescription;
+	private Long id;
+	private String name;
+	private String description;
+	private String address;
 	private List<Review> reviews;
 
 }

@@ -23,16 +23,20 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@NamedQuery(name = "Vendor.findAllVendorByNameDescending",	query = "SELECT v FROM Vendor v ORDER BY v.vendorName DESC")
+@NamedQuery(name = "Vendor.findAllVendorByNameDescending",	query = "SELECT v FROM Vendor v ORDER BY v.name DESC")
 public class Vendor {
 
 	@Id
 	@NonNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)
-	private Long vendorId;
+	private Long id;
 
-	private String vendorName;
+	private String name;
+	
+	private String description;
+	
+	private String address;
 
 	@ManyToOne
 	private ProductDo product;
