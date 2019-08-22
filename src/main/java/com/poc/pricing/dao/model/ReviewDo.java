@@ -2,10 +2,14 @@ package com.poc.pricing.dao.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import com.poc.pricing.dto.RatingEnum;
 
 import io.micrometer.core.lang.NonNull;
 import lombok.Data;
@@ -20,6 +24,8 @@ public class ReviewDo {
 	private Long id;
 	private String name;
 	private String comments;
+	@Enumerated(EnumType.STRING)
+	private RatingEnum rating;
 
 	@ManyToOne
 	private Vendor vendor;

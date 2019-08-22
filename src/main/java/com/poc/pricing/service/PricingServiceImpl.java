@@ -62,6 +62,11 @@ public class PricingServiceImpl implements PricingService {
 	public ProductDto updateProduct(final ProductDto product, final Long id) {
 		Optional<ProductDo> pricingDOOPt = pricingRepository.findById(id);
 		if (pricingDOOPt.isPresent()) {
+			Optional<ProductDo> productNameOpt = pricingRepository.findProductNameExists(product.getName(), id);
+			if(productNameOpt.isPresent())
+			{
+				throw new ProductNameExistException();
+			}
 			ProductDo pricingDO = productMapper.mapProductDtoToDo(product);
 			pricingDO.setId(id);
 			pricingDO = pricingRepository.save(pricingDO);
@@ -101,7 +106,7 @@ public class PricingServiceImpl implements PricingService {
 			ProductDo pricingDO = pricingRepository.save(productDo);
 			return productMapper.mapProductDoToDto(pricingDO);
 		}
-		throw new ProductNameExistException("Product Name already exist");
+		throw new ProductNameExistException();
 
 	}
 

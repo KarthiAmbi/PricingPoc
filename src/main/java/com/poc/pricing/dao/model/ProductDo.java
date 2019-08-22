@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 import org.hibernate.validator.constraints.UniqueElements;
 
@@ -23,6 +25,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@NamedQuery(name = "ProductDo.findProductNameExists", query = "select p from ProductDo p where p.name =:name and p.id !=:id")
 public class ProductDo {
 
 	@Id
@@ -34,6 +37,8 @@ public class ProductDo {
 	private String description;
 	private String type;
 	private String amount;
+	@Version
+	private Integer version;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Vendor> vendors;

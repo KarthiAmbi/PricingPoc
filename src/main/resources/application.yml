@@ -2,8 +2,8 @@ logging:
   level:
     org:
       springframework: INFO
+      
 # Ehcache configuration.
-
 spring:
   cache:
     ehcache:

@@ -15,6 +15,6 @@ public class Review {
 
 	private String name;
 	private String comments;
-	private RatingEnum ratingEnum;
+	private RatingEnum rating;
 
 }

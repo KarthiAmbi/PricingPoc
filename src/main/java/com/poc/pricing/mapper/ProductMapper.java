@@ -2,8 +2,9 @@ package com.poc.pricing.mapper;
 
 import java.util.List;
 
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import com.poc.pricing.dao.model.ProductDo;
 import com.poc.pricing.dao.model.Vendor;
@@ -17,6 +18,7 @@ public interface ProductMapper {
 
 	public ProductDo mapProductDtoToDo(final ProductDto product);
 
+	
 	public ProductDto mapProductDoToDto(final ProductDo productDo);
 	
 	public List<VendorDto> mapVendor(final List<Vendor> vendors);

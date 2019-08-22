@@ -35,12 +35,7 @@ public class PricingController {
 	@Autowired
 	private PricingService pricingService;
 
-	/**
-	 * This method returns all the products
-	 * 
-	 * @return
-	 */
-	@ApiOperation(value = "Get all the products", response = Iterator.class)
+	@ApiOperation(value = "Get all the products It accepts Pagination", response = Iterator.class)
 	@GetMapping(value = "/products")
 	public ResponseEntity<Object> findAllProducts(@RequestParam(defaultValue = "0") Integer pageNo,
 			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
@@ -51,12 +46,6 @@ public class PricingController {
 		return responseEntity;
 	}
 
-	/**
-	 * This method fetches product by id
-	 * 
-	 * @param id
-	 * @return
-	 */
 	@ApiOperation(value = "Get product using the product id", response = Iterator.class)
 	@GetMapping(value = "/product/{id}")
 	public ResponseEntity<Object> fingProduct(@PathVariable Long id) {
@@ -66,54 +55,38 @@ public class PricingController {
 		return responseEntity;
 	}
 
-	/**
-	 * This method updates product by id
-	 * 
-	 * @param product
-	 * @return
-	 */
 	@ApiOperation(value = "Update the  product using the product id", response = ResponseEntity.class)
 	@PutMapping(value = "/product/{id}")
 	public ResponseEntity<Object> updateProduct(@Valid @RequestBody ProductDto product, @PathVariable Long id) {
 		log.debug(" :: Start PricingController updateProduct ::");
 		pricingService.updateProduct(product, id);
 		SuccessResponse successResponse = new SuccessResponse("Product Changes has been updated Successfully",
-				HttpStatus.OK.toString(), PricingConstants.SUCCESS);
-		ResponseEntity<Object> responseEntity = new ResponseEntity<>(successResponse, HttpStatus.OK);
+				HttpStatus.CREATED.toString(), PricingConstants.SUCCESS);
+		ResponseEntity<Object> responseEntity = new ResponseEntity<>(successResponse, HttpStatus.CREATED);
 		log.debug(" :: Start PricingController updateProduct ::");
 		return responseEntity;
 	}
 
-	/**
-	 * This method creates the product
-	 * 
-	 * @param product
-	 * @return
-	 */
-	@ApiOperation(value = "Create the  product using the product id", response = ResponseEntity.class)
+	@ApiOperation(value = "Create the product", response = ResponseEntity.class)
 	@PostMapping(value = "/product")
 	public ResponseEntity<Object> createProduct(@Valid @RequestBody ProductDto product) {
 		log.debug(" :: Start PricingController createProduct ::");
 		pricingService.createProduct(product);
 		SuccessResponse successResponse = new SuccessResponse("Product Changes has been Saved Successfully",
-				HttpStatus.CREATED.toString(), PricingConstants.SUCCESS);
-		ResponseEntity<Object> responseEntity = new ResponseEntity<>(successResponse, HttpStatus.CREATED);
+				HttpStatus.OK.toString(), PricingConstants.SUCCESS);
+		ResponseEntity<Object> responseEntity = new ResponseEntity<>(successResponse, HttpStatus.OK);
 		log.debug(" :: Start PricingController createProduct ::");
 		return responseEntity;
 	}
 
-	/**
-	 * This method deletes the product
-	 * 
-	 * @param id
-	 */
 	@ApiOperation(value = "Create the  product using the product id", response = ResponseEntity.class)
 	@DeleteMapping(value = "/product/{id}")
 	public ResponseEntity<Object> deleteProduct(@PathVariable long id) {
 		log.debug(" :: Start PricingController deleteProduct ::");
 		pricingService.deleteProduct(id);
-		ResponseEntity<Object> responseEntity = new ResponseEntity<>("Product Changes has been Saved Successfully",
-				HttpStatus.OK);
+		SuccessResponse successResponse = new SuccessResponse("Product has been deleted Successfully",
+				HttpStatus.ACCEPTED.toString(), PricingConstants.SUCCESS);
+		ResponseEntity<Object> responseEntity = new ResponseEntity<>(successResponse, HttpStatus.ACCEPTED);
 		log.debug(" :: Start PricingController deleteProduct ::");
 		return responseEntity;
 	}

@@ -17,13 +17,13 @@ public class PricingExceptionHandler {
 	@ExceptionHandler(PriceNotFoundException.class)
 	public ResponseEntity<Object> exception(PriceNotFoundException exception) {
 		ErrorDto errorDetails = new ErrorDto(new Date(), exception.getMessage(), HttpStatus.OK.toString(),
-				PricingConstants.FAILURE);
+				PricingConstants.SUCCESS);
 		return new ResponseEntity<>(errorDetails, HttpStatus.OK);
 	}
 	
 	@ExceptionHandler(ProductNameExistException.class)
 	public ResponseEntity<Object> exception(ProductNameExistException exception) {
-		ErrorDto errorDetails = new ErrorDto(new Date(), exception.getMessage(), HttpStatus.OK.toString(),
+		ErrorDto errorDetails = new ErrorDto(new Date(), "Product Name already exist", HttpStatus.OK.toString(),
 				PricingConstants.VAILDATION_ERROR);
 		return new ResponseEntity<>(errorDetails, HttpStatus.OK);
 	}
