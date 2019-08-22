@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ErrorDto {
+public class ErrorDetail {
 
 	private Date timestamp;
 	private String message;
