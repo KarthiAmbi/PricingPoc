@@ -2,6 +2,7 @@ package com.poc.pricing.controller;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ import com.poc.pricing.dto.VendorDto;
 import com.poc.pricing.service.PricingService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = PricingController.class, secure = false)
+@WebMvcTest(value = PricingController.class)
 public class PricingControllerTest {
 
 	@Autowired
@@ -47,7 +48,7 @@ public class PricingControllerTest {
 		reviews.add(review);
 		VendorDto vendor = new VendorDto(1L, "Apple", "User Friendly", "USA", reviews);
 		vendors.add(vendor);
-		productDto = new ProductDto(1L, "4GMobile", "Work in 4G sets", "Mobile", "100000", vendors);
+		productDto = new ProductDto(1L, "4GMobile", "Work in 4G sets", "Mobile", BigDecimal.valueOf(100000), vendors);
 	}
 
 	@Test

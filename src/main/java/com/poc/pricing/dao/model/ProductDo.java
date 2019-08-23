@@ -1,5 +1,6 @@
 package com.poc.pricing.dao.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
-
-import org.hibernate.validator.constraints.UniqueElements;
 
 import io.micrometer.core.lang.NonNull;
 import lombok.AllArgsConstructor;
@@ -36,7 +35,7 @@ public class ProductDo {
 	private String name;
 	private String description;
 	private String type;
-	private String amount;
+	private BigDecimal amount;
 	@Version
 	private Integer version;
 
