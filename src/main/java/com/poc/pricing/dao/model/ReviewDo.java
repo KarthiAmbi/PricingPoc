@@ -24,8 +24,7 @@ public class ReviewDo {
 	private Long id;
 	private String name;
 	private String comments;
-	@Enumerated(EnumType.STRING)
-	private RatingEnum rating;
+	private Integer rating;
 
 	@ManyToOne
 	private Vendor vendor;

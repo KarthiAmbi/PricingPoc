@@ -44,7 +44,7 @@ public class PricingControllerTest {
 	public void setup() {
 		List<VendorDto> vendors = new ArrayList<VendorDto>();
 		List<Review> reviews = new ArrayList<Review>();
-		Review review = new Review("KKKK", "Good Product", RatingEnum.FIVE);
+		Review review = new Review("KKKK", "Good Product", 5);
 		reviews.add(review);
 		VendorDto vendor = new VendorDto(1L, "Apple", "User Friendly", "USA", reviews);
 		vendors.add(vendor);
@@ -53,7 +53,7 @@ public class PricingControllerTest {
 
 	@Test
 	public void createProductTest() throws Exception {
-		String json = "{ \"name\": \"4G Mobiles\", \"description\": \"High configuration mobile\", \"type\": \"Mobile\", \"amount\": \"100000\", \"vendors\": [ { \"name\": \"Apple\", \"description\": \"User Friendly\", \"address\" : \"USA\", \"reviews\": [ { \"name\":\"karthi\", \"comments\":\"good\", \"rating\" : \"FIVE\" } ] } ] }";
+		String json = "{ \"name\": \"4G Mobiles\", \"description\": \"High configuration mobile\", \"type\": \"Mobile\", \"amount\": \"100000\", \"vendors\": [ { \"name\": \"Apple\", \"description\": \"User Friendly\", \"address\" : \"USA\", \"reviews\": [ { \"name\":\"karthi\", \"comments\":\"good\", \"rating\" : 5 } ] } ] }";
 		Mockito.when(pricingService.createProduct(Mockito.any())).thenReturn(productDto);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/v1/product").accept(MediaType.APPLICATION_JSON)
 				.content(json).contentType(MediaType.APPLICATION_JSON);
@@ -68,7 +68,7 @@ public class PricingControllerTest {
 
 	@Test
 	public void updateProductTest() throws Exception {
-		String json = "{ \"id\":\"1\",\"name\": \"4G Mobiles\", \"description\": \"High configuration mobile\", \"type\": \"Mobile\", \"amount\": \"100000\", \"vendors\": [ { \"name\": \"Apple\", \"description\": \"User Friendly\", \"address\" : \"USA\", \"reviews\": [ { \"name\":\"karthi\", \"comments\":\"good\", \"rating\" : \"FIVE\" } ] } ] }";
+		String json = "{ \"id\":\"1\",\"name\": \"4G Mobiles\", \"description\": \"High configuration mobile\", \"type\": \"Mobile\", \"amount\": \"100000\", \"vendors\": [ { \"name\": \"Apple\", \"description\": \"User Friendly\", \"address\" : \"USA\", \"reviews\": [ { \"name\":\"karthi\", \"comments\":\"good\", \"rating\" : 5 } ] } ] }";
 		productDto.setId(1L);
 		Mockito.when(pricingService.updateProduct(Mockito.any(), Mockito.any())).thenReturn(productDto);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/v1/product/1").accept(MediaType.APPLICATION_JSON)
