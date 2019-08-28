@@ -62,8 +62,14 @@ public class PricingServiceImpl implements PricingService {
 	public ProductDto updateProduct(final ProductDto product, final Long id) {
 		Optional<ProductDo> pricingDOOPt = pricingRepository.findById(id);
 		if (pricingDOOPt.isPresent()) {
+			Optional<ProductDo> productNameOpt = null;
+			productNameOpt = pricingRepository.findProductNameExists(product.getName(), id);
+			if (productNameOpt.isPresent()) {
+				throw new ProductNameExistException();
+			}
 			ProductDo pricingDO = pricingDOOPt.get();
 			pricingDO.setId(id);
+			pricingDO.setName(product.getName());
 			pricingDO.setDescription(product.getDescription());
 			pricingDO.setAmount(product.getAmount());
 			pricingDO = pricingRepository.save(pricingDO);

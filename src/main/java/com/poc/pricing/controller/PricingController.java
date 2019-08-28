@@ -2,6 +2,7 @@ package com.poc.pricing.controller;
 
 import java.time.LocalDateTime;
 import java.util.Iterator;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -98,6 +99,15 @@ public class PricingController {
 		log.debug(" :: Start PricingController findAllVendors ::");
 		ResponseEntity<Object> responseEntity = new ResponseEntity<>(pricingService.findAllVendors(), HttpStatus.OK);
 		log.debug(" :: End PricingController findAllVendors ::");
+		return responseEntity;
+	}
+	
+	@ApiOperation(value = "Get product using the product id as query param", response = Iterator.class)
+	@GetMapping(value = "/product")
+	public ResponseEntity<Object> fingProductByParam(@RequestParam("id") Optional<Long> itemid) {
+		log.debug(" :: Start PricingController fingProduct ::");
+		ResponseEntity<Object> responseEntity = new ResponseEntity<>(pricingService.findProductById(itemid.get()), HttpStatus.OK);
+		log.debug(" :: Start PricingController fingProduct ::");
 		return responseEntity;
 	}
 }
