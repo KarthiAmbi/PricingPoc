@@ -37,14 +37,15 @@ public class PricingController {
 	@Autowired
 	private PricingService pricingService;
 
-	@ApiOperation(value = "Get all the products It accepts Pagination", response = Iterator.class)
-	@GetMapping(value = "/products")
-	public ResponseEntity<Object> findAllProducts(@RequestParam(defaultValue = "0") Integer pageNo,
-			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
-		log.debug(" :: Start PricingController getAllProducts ::");
-		ResponseEntity<Object> responseEntity = new ResponseEntity<>(
-				pricingService.getAllProducts(pageNo, pageSize, sortBy), HttpStatus.OK);
-		log.debug(" :: End PricingController getAllProducts ::");
+	@ApiOperation(value = "Create the product", response = ResponseEntity.class)
+	@PostMapping(value = "/product")
+	public ResponseEntity<Object> createProduct(@Valid @RequestBody ProductDto product) {
+		log.debug(" :: Start PricingController createProduct ::");
+		pricingService.createProduct(product);
+		SuccessResponse successResponse = new SuccessResponse("Product has been saved successfully",
+				HttpStatus.OK.toString(), PricingConstants.SUCCESS, LocalDateTime.now());
+		ResponseEntity<Object> responseEntity = new ResponseEntity<>(successResponse, HttpStatus.OK);
+		log.debug(" :: Start PricingController createProduct ::");
 		return responseEntity;
 	}
 
@@ -53,7 +54,18 @@ public class PricingController {
 	public ResponseEntity<Object> fingProduct(@PathVariable Long id) {
 		log.debug(" :: Start PricingController fingProduct ::");
 		ResponseEntity<Object> responseEntity = new ResponseEntity<>(pricingService.findProductById(id), HttpStatus.OK);
-		log.debug(" :: Start PricingController fingProduct ::");
+		log.debug(" :: End PricingController fingProduct ::");
+		return responseEntity;
+	}
+
+	@ApiOperation(value = "Get all the products It accepts Pagination", response = Iterator.class)
+	@GetMapping(value = "/products")
+	public ResponseEntity<Object> findAllProducts(@RequestParam(defaultValue = "0") Integer pageNo,
+			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
+		log.debug(" :: Start PricingController getAllProducts ::");
+		ResponseEntity<Object> responseEntity = new ResponseEntity<>(
+				pricingService.getAllProducts(pageNo, pageSize, sortBy), HttpStatus.OK);
+		log.debug(" :: End PricingController getAllProducts ::");
 		return responseEntity;
 	}
 
@@ -66,18 +78,6 @@ public class PricingController {
 				HttpStatus.CREATED.toString(), PricingConstants.SUCCESS, LocalDateTime.now());
 		ResponseEntity<Object> responseEntity = new ResponseEntity<>(successResponse, HttpStatus.CREATED);
 		log.debug(" :: Start PricingController updateProduct ::");
-		return responseEntity;
-	}
-
-	@ApiOperation(value = "Create the product", response = ResponseEntity.class)
-	@PostMapping(value = "/product")
-	public ResponseEntity<Object> createProduct(@Valid @RequestBody ProductDto product) {
-		log.debug(" :: Start PricingController createProduct ::");
-		pricingService.createProduct(product);
-		SuccessResponse successResponse = new SuccessResponse("Product has been saved successfully",
-				HttpStatus.OK.toString(), PricingConstants.SUCCESS, LocalDateTime.now());
-		ResponseEntity<Object> responseEntity = new ResponseEntity<>(successResponse, HttpStatus.OK);
-		log.debug(" :: Start PricingController createProduct ::");
 		return responseEntity;
 	}
 
@@ -101,13 +101,14 @@ public class PricingController {
 		log.debug(" :: End PricingController findAllVendors ::");
 		return responseEntity;
 	}
-	
+
 	@ApiOperation(value = "Get product using the product id as query param", response = Iterator.class)
 	@GetMapping(value = "/product")
 	public ResponseEntity<Object> fingProductByParam(@RequestParam("id") Optional<Long> itemid) {
-		log.debug(" :: Start PricingController fingProduct ::");
-		ResponseEntity<Object> responseEntity = new ResponseEntity<>(pricingService.findProductById(itemid.get()), HttpStatus.OK);
-		log.debug(" :: Start PricingController fingProduct ::");
+		log.debug(" :: Start PricingController fingProductByParam ::");
+		ResponseEntity<Object> responseEntity = new ResponseEntity<>(pricingService.findProductById(itemid.get()),
+				HttpStatus.OK);
+		log.debug(" :: End PricingController fingProductByParam ::");
 		return responseEntity;
 	}
 }

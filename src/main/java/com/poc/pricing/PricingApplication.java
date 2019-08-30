@@ -3,8 +3,10 @@ package com.poc.pricing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,11 +19,21 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ComponentScan("com.poc.pricing.*")
 public class PricingApplication {
 
-
 	@Autowired
 	private CacheManager cacheManager;
 
 	public static void main(String[] args) {
 		SpringApplication.run(PricingApplication.class, args);
+	}
+
+	@Bean
+	public FilterRegistrationBean<AuthorizationFilter> someFilterRegistration() {
+
+		FilterRegistrationBean<AuthorizationFilter> registration = new FilterRegistrationBean<>();
+		registration.setFilter(new AuthorizationFilter());
+		registration.addUrlPatterns("/v1/*");
+		registration.setName("Auth");
+		registration.setOrder(1);
+		return registration;
 	}
 }
