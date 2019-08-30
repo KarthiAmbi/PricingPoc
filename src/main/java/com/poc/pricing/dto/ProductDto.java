@@ -3,6 +3,7 @@ package com.poc.pricing.dto;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -29,6 +30,7 @@ public class ProductDto {
 	@NotNull(message = "Product Type cannot be null")
 	private String type;
 	private BigDecimal amount;
+	@Valid
 	private List<VendorDto> vendors;
 	
 	
