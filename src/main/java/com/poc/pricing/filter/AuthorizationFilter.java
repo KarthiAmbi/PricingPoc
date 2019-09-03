@@ -43,6 +43,10 @@ public class AuthorizationFilter implements Filter {
 
 	@Value("${auth.jwt.service.url}")
 	private String authJwtServiceUrl;
+	
+	@Value("${auth.basic.service.url}")
+	private String authBasicServiceUrl;
+
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -57,12 +61,13 @@ public class AuthorizationFilter implements Filter {
 		final String authorization = request.getHeader("Authorization");
 		if (authorization != null && authorization.toLowerCase().startsWith("basic")) {
 			String base64Credentials = authorization.substring("Basic".length()).trim();
-			byte[] credDecoded = Base64.getDecoder().decode(base64Credentials);
-			String credentials = new String(credDecoded, StandardCharsets.UTF_8);
-			final String[] values = credentials.split(":", 2);
-			if (values[0].equalsIgnoreCase("root") && values[1].equalsIgnoreCase("root")) {
+			final String basicuri = authBasicServiceUrl;
+			HttpEntity<String> req = new HttpEntity<>(base64Credentials);
+			ResponseEntity<String> res = restTemplate.exchange(basicuri, HttpMethod.POST, req, String.class);			
+			if(res.getBody().equals("true")) {
 				filterChain.doFilter(request, response);
-			} else {
+			}
+			else {
 				setStatus(response);
 			}
 		} else {
