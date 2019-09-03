@@ -1,4 +1,5 @@
 auth.jwt.service.url: http://localhost:8081/users/validate
+auth.basic.service.url: http://localhost:8090/authenticate
 logging:
    level:
       org:
