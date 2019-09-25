@@ -2,6 +2,7 @@ package com.poc.pricing.controller;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,28 +27,21 @@ public class AsyncController {
 	private AsyncService service;
 
 	@GetMapping("/call")
-	public ResponseEntity<Object> callAsync() {
+	public ResponseEntity<Object> callAsync() throws InterruptedException, ExecutionException {
 
-		System.out.println("fffffffffffffffffffffffffffffffffffffff");
+		CompletableFuture<EmployeeAddresses> employeeAddress = service.getEmployeeAddress();
+		CompletableFuture<EmployeeNames> employeeName = service.getEmployeeName();
+		CompletableFuture<EmployeePhone> employeePhone = service.getEmployeePhone();
 
-		try {
-			CompletableFuture<EmployeeAddresses> employeeAddress = service.getEmployeeAddress();
-			CompletableFuture<EmployeeNames> employeeName = service.getEmployeeName();
-			CompletableFuture<EmployeePhone> employeePhone = service.getEmployeePhone();
-			CompletableFuture.allOf(employeeAddress, employeeName, employeePhone).join();
-			List<EmployeeName> empList = employeeName.get().getEmployeeNameList();
+		CompletableFuture.allOf(employeeAddress, employeeName, employeePhone).join();
 
-			List<EmployeeAddress> empAddressList = employeeAddress.get().getEmployeeAddressList();
+		List<EmployeeName> empList = employeeName.get().getEmployeeNameList();
+		List<EmployeeAddress> empAddressList = employeeAddress.get().getEmployeeAddressList();
+		List<String> empPhList = employeePhone.get().getPhoneNumbers();
 
-			List<String> empPhList = employeePhone.get().getPhoneNumbers();
+		Result result = new Result(empList, empAddressList, empPhList);
 
-			Result result = new Result(empList, empAddressList, empPhList);
-			return new ResponseEntity<>(result, HttpStatus.OK);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return new ResponseEntity<>(result, HttpStatus.OK);
 
 	}
 
