@@ -27,9 +27,8 @@ import com.poc.pricing.dto.ProductDto;
 import com.poc.pricing.dto.Review;
 import com.poc.pricing.dto.VendorDto;
 import com.poc.pricing.service.PricingService;
-
-@RunWith(SpringRunner.class)
 @Ignore
+@RunWith(SpringRunner.class)
 @WebMvcTest(value = PricingController.class)
 public class PricingControllerTest {
 
